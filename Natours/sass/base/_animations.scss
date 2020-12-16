@@ -1,0 +1,47 @@
+/* --Animations-- */
+/* Only with CSS. We will use @keyframes for animations, we can specify of everything in animation. (0%: Start Point, 100%: Finish Point) */
+@keyframes moveInLeft { /* Move left to right, we should specify this name where we use it. */
+    0% { /* Initial State */
+        opacity: 0; /* It is opac, invisible */
+        transform: translateX(-10rem); /* Change in X direction, we wanted it is start from left side */
+        /* transform: rotate(-150deg); You can rotate in +x axis */
+    }
+
+    80%{
+        transform: translateX(1rem); /* Change in X direction, we wanted it is start from left side */
+    }
+
+    100% { /* Final State */
+        opacity: 1; /* It is full, visible */
+        transform: translate(0); /* It goes to original state */
+    }
+}
+
+@keyframes moveInRight { /* Move right to left, we should specify this name where we use it. */
+    0% { /* Initial State */
+        opacity: 0; /* It is opac, invisible */
+        transform: translateX(10rem); /* Change in X direction, we wanted it is start from right side */
+    }
+
+    80%{
+        transform: translateX(-1rem); /* Change in X direction, we wanted it is start from right side */
+    }
+
+    100% { /* Final State */
+        opacity: 1; /* It is full, visible */
+        transform: translate(0); /* It goes to original state */
+    }
+}
+
+/* For The Button Effect */
+@keyframes moveInButton { /* Move right to left, we should specify this name where we use it. */
+    0% { /* Initial State */
+        opacity: 0; /* It is opac, invisible */
+        transform: translateY(3rem); /* Change in Y direction, we wanted it is start from bottom side */
+    }
+
+    100% { /* Final State */
+        opacity: 1; /* It is full, visible */
+        transform: translate(0); /* It goes to original state */
+    }
+}

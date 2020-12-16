@@ -1,0 +1,164 @@
+.navigation { /* We will use the "checkbox trick" or "checkbox hack" */
+   &__checkbox {
+    display: none; /* Hide checkbox */
+   } 
+
+   &__button {
+    background-color: $color-white;
+    height: 7rem;
+    width: 7rem;
+    position: fixed;
+    top: 6rem;
+    right: 6rem;
+    border-radius: 50%;
+    z-index: 2000;
+    box-shadow: 0 1rem 3rem rgba($color-black, .1);
+    cursor: pointer; /* Feels like a real button */
+
+    @include respond(tab-port) {
+        top: 4rem;
+        right: 4rem;
+    }
+
+    @include respond(phone) {
+        top: 3rem;
+        right: 3rem;
+    }
+   }
+
+   &__background {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%; 
+    position: fixed; /* Even you scroll the page it will stay same location, and you can use absolute positions like top and left */
+    top: 6.5rem;
+    right: 6.5rem;
+    background-image: radial-gradient($color-primary-light, $color-primary-dark); /* From the middle to the end */
+    z-index: 1000; /* They will stay always top of anything */
+    transition: transform .8s cubic-bezier(0.83, 0, 0.17, 1); /* We only animated transform, cubic-bezier(0.83, 0, 0.17, 1); kind of timer for animations and really good, https://easings.net/#easeInOutQuint https://cubic-bezier.com/*/
+    //transform: scale(80);
+    @include respond(tab-port) {
+        top: 4.5rem;
+        right: 4.5rem;
+    }
+
+    @include respond(phone) {
+        top: 3.5rem;
+        right: 3.5rem;
+    }
+}
+
+   &__nav {
+    height: 100vh; /* All viewpoint-height */
+    position: fixed; /* Navigation always stays on the viewport */
+    top: 0;
+    left: 0; /* It will comes from left */
+    z-index: 1500;
+
+    opacity: 0; /* invisible */
+    width: 0; /* Totally disappear */
+    display: none;
+    transition: all .8s cubic-bezier(0.68, -0.6, 0.32, 1.6); /* We only animated opacity and width, cubic-bezier is manupilated version of ease-out */
+   }
+
+   &__list { /* List */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    list-style: none;
+    text-align: center;
+    width: 100%;
+   }
+   
+   &__item { /* Item */
+    margin: 1rem;
+   }
+ 
+   &__link { /* Link */
+       &:link,
+       &:visited {
+           display: inline-block; /* To use block attributes */
+    font-size: 3rem; /* Really bigger font-size */
+    font-weight: 300;
+    padding: 1rem 2rem; /* Bigger links */
+    color: $color-white;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%); /* To give angular bg effect to links */
+    background-size: 220%; /* Full with that bg */
+    transition: all .4s;
+
+    span {
+        margin-right: 1.5rem;
+        display: inline-block;
+        }
+    }
+
+        &:hover,
+        &:active {
+            background-position: 100%; /* Change bg-position from 0% to 100% */ 
+            color: $color-primary;
+            transform: translateX(1rem); /* Small move, looks better */
+        }
+    }
+
+    /* Functionality */
+    &__checkbox:checked ~ &__background {
+        transform: scale(80);
+    }
+
+    &__checkbox:checked ~ &__nav {
+        opacity: 1; /* visible nav */
+        width: 100%; /* Totally appear */
+        display: inline-block;
+    }
+
+    /* Icon */
+    &__icon {
+        position: relative;
+        margin-top: 3.5rem; /* To make it beautiful */
+        margin-left: 2rem;
+        &, /* We are create 1 real and 2 psudo element, they acting like a line */
+        &::before,
+        &::after { /* This is our span element */
+            width: 3rem;
+            height: 2px;
+            background-color: $color-gray-dark-3;
+            display: inline-block;
+        }
+
+        &::before,
+        &::after {
+            content: ""; /* It is must as you notice */
+            position: absolute;  /* To set their positions */
+            left: 0;  /* To set their positions */
+            transition: all .2s;
+        }
+
+        &::before { top: -.8rem; } /* To set their positions */
+        &::after { top: .8rem; } /* To set their positions */
+    }
+
+    &__button:hover &__icon::before {  /* We can use it that way because icon child of the button */
+        top: -1rem; /* Move ((1.0-0.8=0.2rem) to top) */
+    }
+
+    &__button:hover &__icon::after {  /* We can use it that way because icon child of the button */
+        top: 1rem;
+    }
+
+    &__checkbox:checked + &__button &__icon { /* navigation__button is the ADJACENT SIBLING of navigation__checkbox, so we can use ADJ SIB. properties (Here we will use +), ADJACENT SIBLING is like KOMŞU ÇOCUĞU. FIRST WE SELECT CHECKBOX, THAN HIS NEIGHBOR BUTTON AND THAN THE BUTTON'S CHILD, WHICH IS ICON */
+        background-color: transparent; /* To make it disappare, the original span element */
+    }
+
+    &__checkbox:checked + &__button &__icon::before { /* navigation__button is the ADJACENT SIBLING of navigation__checkbox, so we can use ADJ SIB. properties (Here we will use +), ADJACENT SIBLING is like KOMŞU ÇOCUĞU. FIRST WE SELECT CHECKBOX, THAN HIS NEIGHBOR BUTTON AND THAN THE BUTTON'S CHILD, WHICH IS ICON */
+        top: 0; /* Positions should be in the center */
+        transform: rotate(135deg); /* To create the cross, 180deg-45deg=135deg */
+    }
+
+    &__checkbox:checked + &__button &__icon::after { /* navigation__button is the ADJACENT SIBLING of navigation__checkbox, so we can use ADJ SIB. properties (Here we will use +), ADJACENT SIBLING is like KOMŞU ÇOCUĞU. FIRST WE SELECT CHECKBOX, THAN HIS NEIGHBOR BUTTON AND THAN THE BUTTON'S CHILD, WHICH IS ICON */
+        top: 0; /* Positions should be in the center */
+        transform: rotate(-135deg); /* To create the cross */
+    } /* transform-origin: right; It is rotate from right, just an info */
+}

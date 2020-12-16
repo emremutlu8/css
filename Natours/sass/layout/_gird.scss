@@ -1,0 +1,61 @@
+.row {
+    max-width: $max-grid-width;
+    margin: 0 auto;
+
+    &:not(:last-child){ /* Except Last child */
+    margin-bottom: $gutter-vertical;
+
+        @include respond(tab-port) {
+        margin-bottom: $gutter-vertical-small;
+        }
+    }
+
+        @include respond(tab-port) {
+            max-width: 50rem;
+            padding: 0 3rem;
+        }
+
+    @include clearfix;
+
+    [class^="col-"] { /*[]: is called an attribute, it says now this: take class attribute which start with (^) "col-" choose all of them. (If we write [class*="col-"] it means select who contain (*) "col-", but we don't want it.) (If we write [class$="col-"] it means select who end with ($) "col-", but we don't want it.) */
+        
+        float: left; /* Because we use the float system, we need to specify like this */
+         
+        &:not(:last-child){
+            margin-right: $gutter-horizontal;
+
+            @include respond(tab-port) {
+                margin-right: 0;
+                margin-bottom: $gutter-vertical-small;
+            }
+        }
+
+        @include respond(tab-port) {
+            width: 100% !important;
+        }
+    }
+    
+    .col-1-of-2{
+        width: calc((100% - #{$gutter-horizontal})/ 2); /* Simply calulation with different type of units, when we use variables we need to use them #{variable} like that */
+    }
+
+    .col-1-of-3{
+        width: calc((100% - 2 * #{$gutter-horizontal}) / 3); /* Simply calulation with different type of units, when we use variables we need to use them #{variable} like that */
+    }
+
+    .col-2-of-3{
+        width: calc(2 * ((100% - 2 * #{$gutter-horizontal}) / 3) + #{$gutter-horizontal}); /* Simply calulation with different type of units, when we use variables we need to use them #{variable} like that */
+    }
+
+    .col-1-of-4{
+        width: calc((100% - 3 * #{$gutter-horizontal})/ 4); /* Simply calulation with different type of units, when we use variables we need to use them #{variable} like that */
+    }
+
+    .col-2-of-4{
+        width: calc(2 * ((100% - 3 * #{$gutter-horizontal})/ 4) +  #{$gutter-horizontal}); /* Simply calulation with different type of units, when we use variables we need to use them #{variable} like that */
+    }
+    
+    .col-3-of-4{
+        width: calc(3 * ((100% - 3 * #{$gutter-horizontal})/ 4) +  #{$gutter-horizontal}); /* Simply calulation with different type of units, when we use variables we need to use them #{variable} like that */
+    }
+}  

@@ -1,0 +1,98 @@
+.btn{
+    /* --Header Button-- */
+    &, /* This one apply all of the things, like <button> */
+    &:link,
+    &:visited { /* :link is a pseudo-class, pseudo-classes are a spacial state of a selector */
+        text-transform: uppercase; /* Make UPPER */
+        text-decoration: none; /* Delete all pre-defined things about text*/
+        display: inline-block; /* We change it as an inline block to use block features */
+        border-radius: 10rem; /* Make borders oval */
+        padding: 1.5rem 4rem; /* Give space from inside */
+        transition: all .2s; /* all animation will be animated, actually it causes the transitions to take 0.2 seconds to start, which gives it a smoother look. */
+        position: relative; /* Due to the :: psudo element */
+        font-size: $default-font-size; /* Specified the button's font size */
+    
+        /* Changes for the <button> element */
+        border:none;
+        cursor: pointer;
+    }
+    
+    &:hover { /* When cursor on it */
+        transform: translateY(-3px); /* Move in Y direction. We gave the -3px because the css moves top to the bottom. We are use it to move upward (With shadows it will feel like it move in Z axis) */
+        box-shadow: 0 10px 20px rgba($color-black, .2); /* box-shadow: x y blur rgba(0, 0, 0, .2); 10px shadow in the y axis, 20px blur. rgba(0, 0, 0, .2); give 20% opacity */
+    
+        &::after {
+        transform: scaleX(1.4) scaleY(1.6); /* 1.5 times bigger then the original one, scale: ölçek */
+        opacity: 0; /* It make our color opac */
+     }
+    }
+    
+    &:active,
+    &:focus { /* When we click it */
+        outline: none;
+        transform: translateY(-1px); /* Move in Y direction. We gave the -1px because the css moves top to the bottom. We are use it to move upward (With shadows it will feel like it move in Z axis) */
+        box-shadow: 0 .5rem 1rem rgba($color-black, .2); /* box-shadow: x y blur rgba(0, 0, 0, .2); 10px shadow in the y axis, 10px blur. rgba(0, 0, 0, .2); give 20% opacity */
+    }
+    
+    &--white {
+        background-color: $color-white; /* bg-color */
+        color: $color-gray-dark; /* text-color */
+        
+        &::after {
+        background-color: $color-white;
+        }
+    }
+
+    &--green {
+        background-color: $color-primary; /* bg-color */
+        color: $color-white; /* text-color */
+        
+        &::after {
+        background-color: $color-primary;
+        }
+    }
+    
+    /* --Behind The Button-- */
+    &::after { /* Add an element like our button, but behind the real button */
+        content: ""; /* We need to specify content element because of to work :: psudo element */
+        display: inline-block;
+        height: 100%; /* It is like child of the button, so 100% height to the original button */
+        width: 100%; /* It is like child of the button, so 100% width to the original button */
+        border-radius: 10rem; /* Same as the original one */
+        position: absolute; /* To make certain coordinate */
+        top: 0; /* Its referance is the original button so 0 from top */
+        left: 0; /* Its referance is the original button so 0 from top */
+        z-index: -1; /* Exactly behind the button */
+        transition: all .4s; /* When we use the animation, we should define it it's parent element */
+    }
+    
+    &--animated { /* We added a new class to the button*/
+        animation: moveInButton .5s ease-out .75s; /* name duration timing-function delay */
+        animation-fill-mode: backwards; /* The styles up to zero percent before starts the animation start. So we hide the first time apperence */
+    }   
+} 
+
+.btn-text {
+    &:link,
+    &:visited {
+        font-size: $default-font-size;
+        color: $color-primary;
+        display: inline-block;
+        text-decoration: none;
+        border-bottom: 1px solid $color-primary;
+        padding: 3px;
+        transition: all .2s;
+    }
+
+    &:hover {
+        background-color: $color-primary;
+        color: $color-white;
+        box-shadow: 0 1rem 2rem rgba($color-black, .15);
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        box-shadow: 0 .5rem 2rem rgba($color-black, .15);
+        transform: translateY(0);
+    }
+}

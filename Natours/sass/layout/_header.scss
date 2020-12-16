@@ -1,0 +1,57 @@
+/* ------------------- */
+/* ------HEADER------- */
+/* ------------------- */
+
+.header {
+    background-image: linear-gradient(
+    to right bottom,
+    rgba($color-primary-light, 0.8), 
+    rgba($color-primary-dark, 0.8)) , 
+    url(../img/hero-small.jpg); /* We add an bg-img and give it some transparent color from top left to the right bottom */
+    height: 85vh; /* 95% of the view height */
+    background-position: top; /* Stay always top in the background */
+    background-size: cover; /* Cover the background, always try the fit */
+    position: relative; /* We make it the referance to our logo */
+   
+    @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) { /* Because it is not supported older version of firefox */
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%); /* We can cut our image, and the polygon(x y, x y, x y, x y) function can give specific coordinates. In clockwise coordinates %100 means (in x direction) 100% of allowed path to the +x direction*/
+        clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%); /* We can cut our image, and the polygon(x y, x y, x y, x y) function can give specific coordinates. In clockwise coordinates %100 means (in x direction) 100% of allowed path to the +x direction*/
+        height: 95vh;
+    }
+
+    @media  only screen and (min-resolution: 192dpi) and (min-width: 37.5em),
+            only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em), /* For the Safari browser */
+            only screen and (min-width: 125em){ /* dpi: dots per inch, If the resolution is higher then the 192dpi then load this one */ /* and: We use multiple media queries */ /* ,:or  */
+        background-image: linear-gradient(
+            to right bottom,
+            rgba($color-primary-light, 0.8), 
+            rgba($color-primary-dark, 0.8)) , 
+            url(../img/hero.jpg); 
+    } 
+ 
+    @include respond(phone) {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    }
+    /* --Logo-- */
+    &__logo-box { /* We change its name because of BEM sysyem */
+    position: absolute; /* Give it absolute position, it is stick */
+    top: 4rem; /* 40px from top */
+    left: 4rem; /* 40px from left */
+    }
+
+    &__logo { /* & is basically take .header */
+    height: 3.5rem; /* Specified a height */
+    }
+
+    /* --Main Text For Header-- */
+    &__text-box {
+    position: absolute; /* We can use top and left properties after make position ABSOLUTE, and its PARENT should be RELATIVE */
+    /* The bottom three change the center from top left to the middle of text */
+    top: 40%; /* Position from top*/
+    left: 50%; /* Position from left*/
+    transform: translate(-50%,-50%); /* We can change the position of this element */
+    text-align: center; /* Makes every text element in the center of text-box class */
+    }
+
+}

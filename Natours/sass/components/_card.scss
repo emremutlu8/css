@@ -1,0 +1,206 @@
+.card {
+    /* Functionality */
+    perspective: 150rem; /* Change axis toward to us, like change pages on a book, so it is called perspective */
+    -moz-perspective: 150rem; /* For work on Mozilla */
+    position: relative; /* We use it for stick together the front and back of the cards */ 
+    height: 52rem; /* Height of card */
+
+    &__side { /* One side of the card */
+        height: 52rem; /* Height of card */
+        transition: all .8s ease; /* For animation */
+        position: absolute; /* We use it for stick together the front and back of the cards */ 
+        top: 0;
+        left: 0;
+        width: 100%; /* Card width */
+        -webkit-backface-visibility: hidden; /* Hide the back part of an element */
+        backface-visibility: hidden; /* Hide the back part of an element */
+        border-radius: 3px; /* Give radius */
+        overflow: hidden; /* Hide the more part of the images */
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .15); /* X Y BLUR COLOR */
+
+        &--front { /* For the front of the card */
+            background-color: $color-white; /* BG-Color of card */
+        }
+
+        &--back { /* For the front of the card */
+            transform: rotateY(180deg); /* Show the back of the card. (Totat is 360deg, 180deg is the back of it) */
+            
+            &-1 {
+                background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark); /* BG-Color of 1st card */
+            }
+
+            &-2 {
+                background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark); /* BG-Color of 1st card */
+            }
+
+            &-3 {
+                background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark); /* BG-Color of 1st card */
+            }
+
+        }
+
+    }    
+
+    &:hover &__side--front { /* .card:hover .card__side--front => When we hover the card, the side transformed */
+        transform: rotateY(-180deg); /* Show the back of the card. (Change the opposite direction) */
+    }
+
+    &:hover &__side--back { /* .card:hover .card__side--back => When we hover the card, the side transformed */
+        transform: rotateY(0); /* Show the back of the card. It was already in 180deg, but we turn it on 0 deg */
+    }
+
+    /* --Front Side Styling-- */
+    &__picture { /* Card front picture */
+        background-size: cover; /* You should apply the size */
+        height: 23rem; /* A small image size 230px */
+        background-blend-mode: screen; /* Apply linear gradiant, blend mode is effects */
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); /* Give the cut effect */
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); /* Give the cut effect */
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark), url(../img/nat-5.jpg); /* Background img to top side */
+        }
+
+        &--2 {
+            background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark), url(../img/nat-6.jpg); /* Background img to top side */
+        }
+
+        &--3 {
+            background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark), url(../img/nat-7.jpg); /* Background img to top side */
+        }
+
+    }
+
+    &__heading {
+        font-size: 2.8rem; /* Give font size */
+        font-weight: 300; /* Give font weight */
+        text-transform: uppercase; /* Make them BIGGER */
+        text-align: right; /* Align the text from the right side */
+        color: $color-white; /* Text color */
+        position: absolute; /* Absolute position */
+        top: 12rem;
+        right: 2rem; /* From right side 20px */
+        width: 75%; /* To make it smaller in width */
+    }
+    
+    &__heading-span {
+        padding: 1rem 1.5rem; /* To make 2 rows on the header, to force it make smaller */
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone; /* To make these 2 rows as a different elements and affect both of them */
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, rgba($color-secondary-light, .85), rgba($color-secondary-dark, .85));
+        }
+
+        &--2 {
+            background-image: linear-gradient(to right bottom, rgba($color-primary-light, .85), rgba($color-primary-dark, .85));
+        }
+
+        &--3 {
+            background-image: linear-gradient(to right bottom, rgba($color-tertiary-light, .85), rgba($color-tertiary-dark, .85));
+        }
+        
+    }
+
+    &__details {
+        padding: 3rem; /* Give some empty space from top */
+
+        ul {
+            list-style: none; /* Remove dots */
+            width: 80%; /* We don't want to use all of the width */
+            margin: 0 auto; /* Make the list in center. (margin: top-bottom left-right) */
+
+            li {
+                text-align: center; /* Centered the li elements */
+                font-size: 1.5rem; /* Font size 1.5rem */
+                padding: 1rem; /* Give some padding to give empty space */
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $color-gray-light-2;
+                }
+            }
+        }
+    }
+
+    /* BACK SIDE STYLING */
+    &__cta { /* Create a box which has the information */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%; /* Make it bigger */
+        text-align: center;
+    }
+
+    &__price-box {/* Create a box which has the price info */
+        text-align: center;
+        color: $color-white;
+        margin-bottom: 8rem;
+    }
+
+    &__price-only { /* Just a small text */
+        font-size: 1.4rem;
+        text-transform: uppercase;
+    }
+
+    &__price-value { /* What is the price, and how they seems */
+        font-size: 6rem;
+        font-weight: 100;
+    }
+
+
+
+
+    //@include respond(tab-port) { /* For responsive mode */
+    @media only screen and (max-width: 56.25em), /* We add this to use another media query */
+            only screen and (hover: none) { /* Apply it if user cannot hover with his divice */
+        height: auto; /* Height of card */
+        border-radius: $border-radius;
+        background-color: $color-white;
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .15); /* X Y BLUR COLOR */
+
+        &__side { /* One side of the card */
+            height: auto; /* Height of card */
+            position: relative; /* We use it for stick together the front and back of the cards */ 
+            box-shadow: none;
+
+            &--back { /* For the front of the card */
+                transform: rotateY(0); /* Show the back of the card. (Totat is 360deg, 180deg is the back of it) */
+                -webkit-clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+                clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+            }
+
+        }    
+
+       
+        &:hover &__side--front { /* .card:hover .card__side--front => When we hover the card, the side transformed */
+            transform: rotateY(0); /* Show the back of the card. (Change the opposite direction) */
+        }
+
+
+        &__details {
+            padding: 1rem 3rem;
+        }
+
+        /* BACK SIDE STYLING */
+        &__cta { /* Create a box which has the information */
+            position: relative; /* Give his freedom */
+            top: 0;
+            left: 0;
+            transform: translate(0);
+            width: 100%; /* Make it bigger */
+            padding: 7rem 4rem 4rem 4rem;
+        }
+
+        &__price-box {/* Create a box which has the price info */
+            margin-bottom: 3rem;
+        }
+
+        &__price-value { /* What is the price, and how they seems */
+            font-size: 4rem;
+        }
+    }
+    
+}

@@ -1,0 +1,85 @@
+.story {
+    width: 75%; /* We don't want it becomes too big */
+    margin: 0 auto; /* Since it is a block element inside a block element */
+    box-shadow: 0 3rem 6rem rgba($color-black , .1); /* Give a little shadow */
+    background-color: rgba($color-white, .6); /* A bg-color to the story area with some opacity (.6) */
+    border-radius: 3px; /* A small radius to the story area */
+    padding: 6rem; /* Give some padding */
+    padding-left: 9rem; /* Move the img exact the same position ((6+3)rem) */
+    font-size: $default-font-size;
+    transform: skewX(-12deg); /* Give angular shape */
+
+    @include respond(tab-port) {
+        width: 100%; /* To have more area */
+        padding: 4rem; /* Give some padding */
+        padding-left: 7rem; /* Move the img exact the same position ((6+3)rem) */
+    }
+
+    @include respond(phone) {
+        transform: skewX(0); /* Give angular shape */
+    }
+    
+    &__shape {
+        width: 15rem;
+        height: 15rem;
+        float: left; /* Make text and image in one line */
+         
+        transform: translateX(-3rem) skewX(12deg); /* TRANSLATE: Give some empty space, actually move the image -3rem. SKEWX: To make the shape the same position */
+        position: relative; /* For the caption */
+        overflow: hidden; /* Hide the wierd vertical effect */ /* Hide the outside of our shape images */
+        border-radius: 50%; /* round image */
+
+        @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) { /* Because it is not supported older version of firefox */
+            -webkit-clip-path: circle(50% at 50% 50%);
+            clip-path: circle(50% at 50% 50%); /* We gived the circular shape */
+            -webkit-shape-outside: circle(50% at 50% 50%);
+            shape-outside: circle(50% at 50% 50%); /* circle(radius at X Y) radius 50% means half of the width and height of the element (7.5rem). It has to be floated. */
+            border-radius: none; /* round image none */
+            
+        }
+    
+
+        @include respond(phone) {
+            transform: translateX(-3rem) skewX(0); /* Give angular shape */
+        }
+    } 
+
+    &__img {
+        height: 100%; /* To fill the area (15rem in this case) */
+        transform: translateX(-4rem) scale(1.4); /* To the centered image. SCALE: to get bigger img  */
+        backface-visibility: hidden; /* To fix the transform mistake */
+        transition: all .5s; /* To the animation */
+    }
+
+    &__text {
+        transform: skewX(12deg); /* SKEWX: To make the text the original position. */
+
+        @include respond(phone) {
+            transform: skewX(0); /* Give angular shape */
+        }
+    }
+
+    &__caption {
+        position: absolute; /* Absolutely in the center */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 20%); /* It is on the bottom. */
+        color: $color-white;
+        text-transform: uppercase;
+        font-size: 1.7rem;
+        text-align: center;
+        opacity: 0; /* It becomes invisible */
+        transition: all .5s; /* To the animation */
+        backface-visibility: hidden; /* To fix the animation mistake */
+    }
+
+    &:hover &__caption { /* When we hover it becomes visible */
+        opacity: 1; /* It becomes visible */
+        transform: translate(-50%, -50%); /* It is going to top. */
+    }
+
+    &:hover &__img {
+        transform: translateX(-4rem) scale(1); /* To the centered image. SCALE: to get bigger img  */
+        filter: blur(3px) brightness(80%); /* Apply some filter, (BLUR AND BRIGHTNESS) There are lots of filters */
+    }
+}

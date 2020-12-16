@@ -1,0 +1,104 @@
+.form {
+    &__group:not(:last-child) {
+        margin-bottom: 2rem; /* Give 2rem empty space exept last-child */
+    }
+
+    &__input {
+        font-size: 1.5rem; /* Give some font size */
+        font-family: inherit; /* Inherit font family from main, because input elements can't reach font-family we should specify it */
+        color: inherit; /* We need to inherit the color as well */
+        padding: 1.5rem 2rem; /* Give some padding to imputs */
+        border-radius: 2px; /* Small radius */
+        background-color: rgba($color-white, .5); /* Smooth bg-color */
+        border: none; /* Delete automatic browser borders */
+        border-bottom: 3px solid transparent; /* We set this because of the prevent from the diffirences */
+        width: 90%; /* to prevent any size problem */
+        display: block; /* because they are a block element */
+        transition: all .3s;
+
+        @include respond(tab-port) {
+            width: 100%;
+        }
+
+        &:focus { /* :focus is a psuode class */
+            outline: none; /* Delete automatic browser outline */
+            box-shadow: 0 1rem 2rem rgba($color-black, .1); /* X Y Blur Color */
+            border-bottom: 3px solid $color-primary; /* Give 3px border on bottom with primary color */
+        }
+
+        &:focus:invalid { /* When we focus, if that input is invalid this will work*/
+            border-bottom: 3px solid $color-secondary-dark; /* Give 3px border on bottom with secondary-dark color */
+        }
+
+        &::-webkit-input-placeholder { /* (:: means psuode element) We use it to give a shape to the placeholder */
+            color: $color-gray-dark-2; /* When we don't write anything, this color will be appear */
+        }
+    }
+
+
+    &__label {
+        font-size: 1.2rem; /* Really small font */
+        font-weight: 700; /* Some weight */
+        margin-left: 2rem; /* To the same line with the input */
+        margin-top: .7rem; /* Give some empty space */
+        display: block; /* To use the box model elements */
+        transition: all .3s;
+    }
+
+    &__input:placeholder-shown + &__label { /* We also select the &__label with (+ => Sibling selector). With + we also us it that way, it is just a sibling that comes immediately after the element we select in the first place. And also (~ => GENERAL Sibling selector) can be used, instead of + because ~ is general sibling selector, it does not care wheter imeditely after or not! */
+        opacity: 0; /* It will be on the page but it will be invisible, we use it to use animation */
+        visibility: hidden; /* It will totally disappear */
+        transform: translateY(-4rem); /* It will move from top */
+    }
+
+
+    &__radio-group {
+        width: 49%; /* Width of parent */
+        display: inline-block; /* To get the same line */
+
+        @include respond(tab-port) {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__radio-input { /* Real radio element */
+        display: none; /* We hide real radio element */
+    }
+    &__radio-label {
+        font-size: $default-font-size; /* Font size */
+        cursor: pointer; /* Cursor is shown as link  */
+        position: relative; /* It is the parent element of radio-button */
+        padding-left: 4.5rem;
+    }
+
+    &__radio-button { /* We create a custom radio element */
+        height: 3rem; /* */
+        width: 3rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        display: inline-block; /* */
+        position: absolute; /* To position our custom radio */
+        left: 0;
+        top: -.4rem; /* Position of custom radio */
+
+        &::after { /* We use this lier element */ /* inner circle */
+            content: ""; /* Because of this one is a lier element */
+            display: block; /* We need to tell also how it will display */
+            height: 1.3rem; /* inner circle */
+            width: 1.3rem; /* inner circle */
+            border-radius: 50%; /* inner circle */
+            position: absolute; /* inner circle */
+            top: 50%; /* inner circle */
+            left: 50%; /* inner circle */
+            transform: translate(-50%, -50%);
+            background-color: $color-primary;
+            opacity: 0; /* We hide its apperance */
+            transition: opacity .2s; /* Instead of all we used opacity, which is a specific element */
+        }
+    }
+
+    &__radio-input:checked ~ &__radio-label &__radio-button::after { /* radio-button child of the radio-label, radio-label under the radio-input:checked */
+        opacity: 1; /* We show its apperance */
+    }
+} 

@@ -1,0 +1,84 @@
+body {
+    font-family: "Lato", sans-serif;  /* Overall font type */
+    font-weight: 400;
+    font-size: $default-font-size;
+    line-height: 1.7; /* 1.7 times bigger than     the pre-defined line height */
+    color: $color-gray-dark;
+    }
+
+.heading-primary {
+    text-transform: uppercase; /* Make everything BIGGER */
+    color: $color-white; /* Change color */
+
+    backface-visibility: hidden; /* It is fix the animation error ( Actually it moves to the top, but we can fix it with this command. ) */
+
+    &--main {
+        display: block; /* We make them as block level elements, so they can be seperared up and down */
+        font-size: 6rem; /* It is bigger one 60px */
+        font-weight: 400; /* Thinner due to the h1's original */
+        letter-spacing: 3.5rem; /* Give some space btw. letters */
+    
+        animation-name: moveInLeft; /* We should specify in here due to use that specific(moveInLeft) animation */
+        animation-duration: 1s; /* We gave the animation duration */
+        animation-timing-function: ease-out; /* Animation start faster and finish slower */
+    
+
+        @include respond(phone) {
+            letter-spacing: 1rem; /* When we have the phone sizes, make the letter spacing 1rem */
+            font-size: 5rem; /* When we have the phone sizes, make the font size 5rem */
+        }
+        /* animation-iteration-count: 3;  Animation repeat (works) 3 times */
+        /* animation-delay: 3s; It will wait for 3 seconds, after it is going to start */
+    }
+    
+    &--sub {
+        display: block; /* We make them as block level elements, so they can be seperared up and down */
+        font-size: 2rem; /* It is smaller one 40px */
+        font-weight: 700; /* Thinner due to the h1's original */
+        letter-spacing: 1.75rem; /* Give some space btw. letters */
+        animation: moveInRight 1s ease-out; /* All properties which we need is in the same lane */
+
+        @include respond(phone) {
+            letter-spacing: .5rem; /* When we have the phone sizes, make the letter spacing .5rem */
+        }
+    }
+}
+
+.heading-secondary { /* This is for second title */
+    font-size: 3.5rem; /* 35px=3.5rem */
+    text-transform: uppercase; /* Uppercase */
+    font-weight: 700; /* Increase font weight to 700 */ 
+    display: inline-block; /* Change display stuation */
+    background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark); /* Give bg gradiante */
+    -webkit-background-clip: text; /* Give bg only the text (Use with webkit) */
+    color: transparent; /* Give transparency to see bg color */
+    letter-spacing: .2rem; /* Give 2 px letter spacing */
+    transition: all .2s; /* To make cool animation */
+
+    @include respond(tab-port) { 
+        font-size: 3rem; 
+    }
+
+    @include respond(phone) { 
+        font-size: 2.5rem; 
+    }
+
+    &:hover {
+        transform: skewY(2deg) skewX(2deg) scale(1.1); /* Change 2 degree in Y direction and 2 degree in X direction. Scale(1.1): Makes 110% bigger */
+        text-shadow: .5rem 1rem 2rem rgba($color-black, .20%); /* text-shadow: x y blur rgba(color, opacity) */
+    }
+}
+
+.heading-tertiary {
+    font-size: $default-font-size;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.paragraph {
+    font-size: $default-font-size;
+
+    &:not(:last-child){
+        margin-bottom: 3rem;
+    }
+}

@@ -1,0 +1,1497 @@
+@charset "UTF-8";
+/* MEDIA QUERY MANAGER */
+/* 
+ *  0 - 600px: Phone
+ *  600px - 900px: Tablet portrait
+ *  900px - 1200px: Tablet landscape
+ *  [1200px - 1800px] is where our normal styles apply
+ *  1800px + : Big desktop
+ 
+ $breakpoint argument choices: 
+ - phone
+ - tab-port: tablet portrait
+ - tab-land
+ - big-dekstop
+
+    ORDER: (Base + Typography) > (general layout + grid) > (page layout) > (components)
+    
+ 1em= 16px
+ For example, 1800/16=112.5em for the last one.
+ */
+/* Colors */
+/* Font */
+/* Grid */
+/* Border Radius */
+/* --Animations-- */
+/* Only with CSS. We will use @keyframes for animations, we can specify of everything in animation. (0%: Start Point, 100%: Finish Point) */
+@keyframes moveInLeft {
+  /* Move left to right, we should specify this name where we use it. */
+  0% {
+    /* Initial State */
+    opacity: 0;
+    /* It is opac, invisible */
+    transform: translateX(-10rem);
+    /* Change in X direction, we wanted it is start from left side */
+    /* transform: rotate(-150deg); You can rotate in +x axis */ }
+  80% {
+    transform: translateX(1rem);
+    /* Change in X direction, we wanted it is start from left side */ }
+  100% {
+    /* Final State */
+    opacity: 1;
+    /* It is full, visible */
+    transform: translate(0);
+    /* It goes to original state */ } }
+
+@keyframes moveInRight {
+  /* Move right to left, we should specify this name where we use it. */
+  0% {
+    /* Initial State */
+    opacity: 0;
+    /* It is opac, invisible */
+    transform: translateX(10rem);
+    /* Change in X direction, we wanted it is start from right side */ }
+  80% {
+    transform: translateX(-1rem);
+    /* Change in X direction, we wanted it is start from right side */ }
+  100% {
+    /* Final State */
+    opacity: 1;
+    /* It is full, visible */
+    transform: translate(0);
+    /* It goes to original state */ } }
+
+/* For The Button Effect */
+@keyframes moveInButton {
+  /* Move right to left, we should specify this name where we use it. */
+  0% {
+    /* Initial State */
+    opacity: 0;
+    /* It is opac, invisible */
+    transform: translateY(3rem);
+    /* Change in Y direction, we wanted it is start from bottom side */ }
+  100% {
+    /* Final State */
+    opacity: 1;
+    /* It is full, visible */
+    transform: translate(0);
+    /* It goes to original state */ } }
+
+*,
+*::after,
+*::before {
+  /* Simple reset: We don't want browser adding elements */
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  /* Inherit it from body part? (I guess) */ }
+
+html {
+  /* 1rem = 10px; 10px/16px = 62.5%; */
+  font-size: 62.5%;
+  /* This defines what 1 rem is. We will use it for ram calculations. Actually default font size in browsers is 16px, but we want 10px. So we can do that calculation: ((10px/16px)=0.625). If the users default is like 22px we can calculate it as 22*0.625=13.75 and so on. */
+  /* First larger screens than smaller screens because of order properties if we have 500px screen than second will apply */
+  /* 1200px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */
+  /* 1rem = 9px, 9/16 = 56.25% */
+  /* width < 1200px */
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */
+  /* 1rem = 8px, 8/16 = 50% */
+  /* width < 900px */
+  /* 1rem = 12px, 12/16 = 75% */
+  /* width > 1800px */ }
+  @media only screen and (max-width: 75em) {
+    html {
+      font-size: 56.25%; } }
+  @media only screen and (max-width: 56.25em) {
+    html {
+      font-size: 50%; } }
+
+body {
+  box-sizing: border-box;
+  /* Change the box model, so the margin and padding adding to normal width and normal height. We inherited in the universal selector part */
+  padding: 3rem;
+  /* Body contain all elements so padding give the whole page */
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */
+  /* When we switch the tablet portrait size, padding become zero. */ }
+  @media only screen and (max-width: 56.25em) {
+    body {
+      padding: 0; } }
+
+::selection {
+  background-color: #55c57a;
+  color: #fff; }
+
+body {
+  font-family: "Lato", sans-serif;
+  /* Overall font type */
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  /* 1.7 times bigger than     the pre-defined line height */
+  color: #777; }
+
+.heading-primary {
+  text-transform: uppercase;
+  /* Make everything BIGGER */
+  color: #fff;
+  /* Change color */
+  backface-visibility: hidden;
+  /* It is fix the animation error ( Actually it moves to the top, but we can fix it with this command. ) */ }
+  .heading-primary--main {
+    display: block;
+    /* We make them as block level elements, so they can be seperared up and down */
+    font-size: 6rem;
+    /* It is bigger one 60px */
+    font-weight: 400;
+    /* Thinner due to the h1's original */
+    letter-spacing: 3.5rem;
+    /* Give some space btw. letters */
+    animation-name: moveInLeft;
+    /* We should specify in here due to use that specific(moveInLeft) animation */
+    animation-duration: 1s;
+    /* We gave the animation duration */
+    animation-timing-function: ease-out;
+    /* Animation start faster and finish slower */
+    /* em for take browser's font size */
+    /* only screen: if someone printout our page it won't affect any of them */
+    /* 600px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */
+    /* animation-iteration-count: 3;  Animation repeat (works) 3 times */
+    /* animation-delay: 3s; It will wait for 3 seconds, after it is going to start */ }
+    @media only screen and (max-width: 37.5em) {
+      .heading-primary--main {
+        letter-spacing: 1rem;
+        /* When we have the phone sizes, make the letter spacing 1rem */
+        font-size: 5rem;
+        /* When we have the phone sizes, make the font size 5rem */ } }
+  .heading-primary--sub {
+    display: block;
+    /* We make them as block level elements, so they can be seperared up and down */
+    font-size: 2rem;
+    /* It is smaller one 40px */
+    font-weight: 700;
+    /* Thinner due to the h1's original */
+    letter-spacing: 1.75rem;
+    /* Give some space btw. letters */
+    animation: moveInRight 1s ease-out;
+    /* All properties which we need is in the same lane */
+    /* em for take browser's font size */
+    /* only screen: if someone printout our page it won't affect any of them */
+    /* 600px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    @media only screen and (max-width: 37.5em) {
+      .heading-primary--sub {
+        letter-spacing: .5rem;
+        /* When we have the phone sizes, make the letter spacing .5rem */ } }
+
+.heading-secondary {
+  /* This is for second title */
+  font-size: 3.5rem;
+  /* 35px=3.5rem */
+  text-transform: uppercase;
+  /* Uppercase */
+  font-weight: 700;
+  /* Increase font weight to 700 */
+  display: inline-block;
+  /* Change display stuation */
+  background-image: linear-gradient(to right, #7ed56f, #28b485);
+  /* Give bg gradiante */
+  -webkit-background-clip: text;
+  /* Give bg only the text (Use with webkit) */
+  color: transparent;
+  /* Give transparency to see bg color */
+  letter-spacing: .2rem;
+  /* Give 2 px letter spacing */
+  transition: all .2s;
+  /* To make cool animation */
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */
+  /* em for take browser's font size */
+  /* only screen: if someone printout our page it won't affect any of them */
+  /* 600px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 56.25em) {
+    .heading-secondary {
+      font-size: 3rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .heading-secondary {
+      font-size: 2.5rem; } }
+  .heading-secondary:hover {
+    transform: skewY(2deg) skewX(2deg) scale(1.1);
+    /* Change 2 degree in Y direction and 2 degree in X direction. Scale(1.1): Makes 110% bigger */
+    text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2);
+    /* text-shadow: x y blur rgba(color, opacity) */ }
+
+.heading-tertiary {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase; }
+
+.paragraph {
+  font-size: 1.6rem; }
+  .paragraph:not(:last-child) {
+    margin-bottom: 3rem; }
+
+.u-center-text {
+  text-align: center !important; }
+
+/* All of them should be applied so we used !important */
+.u-margin-bottom-small {
+  margin-bottom: 1.5rem !important; }
+
+.u-margin-bottom-medium {
+  margin-bottom: 4rem !important;
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 56.25em) {
+    .u-margin-bottom-medium {
+      margin-bottom: 3rem !important; } }
+
+.u-margin-bottom-big {
+  margin-bottom: 8rem !important;
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 56.25em) {
+    .u-margin-bottom-big {
+      margin-bottom: 5rem !important; } }
+
+.u-margin-top-big {
+  margin-bottom: 8rem !important; }
+
+.u-margin-top-huge {
+  margin-bottom: 10rem !important; }
+
+.bg-video {
+  position: absolute;
+  /* Position of the bg-video */
+  top: 0;
+  /* Same as the section-stories */
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  /* Behind the all off the toher elements */
+  opacity: .15;
+  /* Give some blur */
+  overflow: hidden;
+  /* Hide the overflows */ }
+  .bg-video__content {
+    height: 100%;
+    /* Same as section stories, but cannot go further, so we use to fix this problem object-fit */
+    width: 100%;
+    object-fit: cover;
+    /* Cover whole section stories, in other words, fill the enthire parent element */ }
+
+.btn {
+  /* --Header Button-- */
+  /* --Behind The Button-- */ }
+  .btn, .btn:link, .btn:visited {
+    /* :link is a pseudo-class, pseudo-classes are a spacial state of a selector */
+    text-transform: uppercase;
+    /* Make UPPER */
+    text-decoration: none;
+    /* Delete all pre-defined things about text*/
+    display: inline-block;
+    /* We change it as an inline block to use block features */
+    border-radius: 10rem;
+    /* Make borders oval */
+    padding: 1.5rem 4rem;
+    /* Give space from inside */
+    transition: all .2s;
+    /* all animation will be animated, actually it causes the transitions to take 0.2 seconds to start, which gives it a smoother look. */
+    position: relative;
+    /* Due to the :: psudo element */
+    font-size: 1.6rem;
+    /* Specified the button's font size */
+    /* Changes for the <button> element */
+    border: none;
+    cursor: pointer; }
+  .btn:hover {
+    /* When cursor on it */
+    transform: translateY(-3px);
+    /* Move in Y direction. We gave the -3px because the css moves top to the bottom. We are use it to move upward (With shadows it will feel like it move in Z axis) */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    /* box-shadow: x y blur rgba(0, 0, 0, .2); 10px shadow in the y axis, 20px blur. rgba(0, 0, 0, .2); give 20% opacity */ }
+    .btn:hover::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      /* 1.5 times bigger then the original one, scale: ölçek */
+      opacity: 0;
+      /* It make our color opac */ }
+  .btn:active, .btn:focus {
+    /* When we click it */
+    outline: none;
+    transform: translateY(-1px);
+    /* Move in Y direction. We gave the -1px because the css moves top to the bottom. We are use it to move upward (With shadows it will feel like it move in Z axis) */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    /* box-shadow: x y blur rgba(0, 0, 0, .2); 10px shadow in the y axis, 10px blur. rgba(0, 0, 0, .2); give 20% opacity */ }
+  .btn--white {
+    background-color: #fff;
+    /* bg-color */
+    color: #777;
+    /* text-color */ }
+    .btn--white::after {
+      background-color: #fff; }
+  .btn--green {
+    background-color: #55c57a;
+    /* bg-color */
+    color: #fff;
+    /* text-color */ }
+    .btn--green::after {
+      background-color: #55c57a; }
+  .btn::after {
+    /* Add an element like our button, but behind the real button */
+    content: "";
+    /* We need to specify content element because of to work :: psudo element */
+    display: inline-block;
+    height: 100%;
+    /* It is like child of the button, so 100% height to the original button */
+    width: 100%;
+    /* It is like child of the button, so 100% width to the original button */
+    border-radius: 10rem;
+    /* Same as the original one */
+    position: absolute;
+    /* To make certain coordinate */
+    top: 0;
+    /* Its referance is the original button so 0 from top */
+    left: 0;
+    /* Its referance is the original button so 0 from top */
+    z-index: -1;
+    /* Exactly behind the button */
+    transition: all .4s;
+    /* When we use the animation, we should define it it's parent element */ }
+  .btn--animated {
+    /* We added a new class to the button*/
+    animation: moveInButton .5s ease-out .75s;
+    /* name duration timing-function delay */
+    animation-fill-mode: backwards;
+    /* The styles up to zero percent before starts the animation start. So we hide the first time apperence */ }
+
+.btn-text:link, .btn-text:visited {
+  font-size: 1.6rem;
+  color: #55c57a;
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid #55c57a;
+  padding: 3px;
+  transition: all .2s; }
+
+.btn-text:hover {
+  background-color: #55c57a;
+  color: #fff;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px); }
+
+.btn-text:active {
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15);
+  transform: translateY(0); }
+
+.card {
+  /* Functionality */
+  perspective: 150rem;
+  /* Change axis toward to us, like change pages on a book, so it is called perspective */
+  -moz-perspective: 150rem;
+  /* For work on Mozilla */
+  position: relative;
+  /* We use it for stick together the front and back of the cards */
+  height: 52rem;
+  /* Height of card */
+  /* --Front Side Styling-- */
+  /* BACK SIDE STYLING */ }
+  .card__side {
+    /* One side of the card */
+    height: 52rem;
+    /* Height of card */
+    transition: all .8s ease;
+    /* For animation */
+    position: absolute;
+    /* We use it for stick together the front and back of the cards */
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Card width */
+    -webkit-backface-visibility: hidden;
+    /* Hide the back part of an element */
+    backface-visibility: hidden;
+    /* Hide the back part of an element */
+    border-radius: 3px;
+    /* Give radius */
+    overflow: hidden;
+    /* Hide the more part of the images */
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+    /* X Y BLUR COLOR */ }
+    .card__side--front {
+      /* For the front of the card */
+      background-color: #fff;
+      /* BG-Color of card */ }
+    .card__side--back {
+      /* For the front of the card */
+      transform: rotateY(180deg);
+      /* Show the back of the card. (Totat is 360deg, 180deg is the back of it) */ }
+      .card__side--back-1 {
+        background-image: linear-gradient(to right bottom, #ffb900, #ff7730);
+        /* BG-Color of 1st card */ }
+      .card__side--back-2 {
+        background-image: linear-gradient(to right bottom, #7ed56f, #28b485);
+        /* BG-Color of 1st card */ }
+      .card__side--back-3 {
+        background-image: linear-gradient(to right bottom, #2998ff, #5643fa);
+        /* BG-Color of 1st card */ }
+  .card:hover .card__side--front {
+    /* .card:hover .card__side--front => When we hover the card, the side transformed */
+    transform: rotateY(-180deg);
+    /* Show the back of the card. (Change the opposite direction) */ }
+  .card:hover .card__side--back {
+    /* .card:hover .card__side--back => When we hover the card, the side transformed */
+    transform: rotateY(0);
+    /* Show the back of the card. It was already in 180deg, but we turn it on 0 deg */ }
+  .card__picture {
+    /* Card front picture */
+    background-size: cover;
+    /* You should apply the size */
+    height: 23rem;
+    /* A small image size 230px */
+    background-blend-mode: screen;
+    /* Apply linear gradiant, blend mode is effects */
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    /* Give the cut effect */
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    /* Give the cut effect */
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px; }
+    .card__picture--1 {
+      background-image: linear-gradient(to right bottom, #ffb900, #ff7730), url(../img/nat-5.jpg);
+      /* Background img to top side */ }
+    .card__picture--2 {
+      background-image: linear-gradient(to right bottom, #7ed56f, #28b485), url(../img/nat-6.jpg);
+      /* Background img to top side */ }
+    .card__picture--3 {
+      background-image: linear-gradient(to right bottom, #2998ff, #5643fa), url(../img/nat-7.jpg);
+      /* Background img to top side */ }
+  .card__heading {
+    font-size: 2.8rem;
+    /* Give font size */
+    font-weight: 300;
+    /* Give font weight */
+    text-transform: uppercase;
+    /* Make them BIGGER */
+    text-align: right;
+    /* Align the text from the right side */
+    color: #fff;
+    /* Text color */
+    position: absolute;
+    /* Absolute position */
+    top: 12rem;
+    right: 2rem;
+    /* From right side 20px */
+    width: 75%;
+    /* To make it smaller in width */ }
+  .card__heading-span {
+    padding: 1rem 1.5rem;
+    /* To make 2 rows on the header, to force it make smaller */
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    /* To make these 2 rows as a different elements and affect both of them */ }
+    .card__heading-span--1 {
+      background-image: linear-gradient(to right bottom, rgba(255, 185, 0, 0.85), rgba(255, 119, 48, 0.85)); }
+    .card__heading-span--2 {
+      background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.85), rgba(40, 180, 133, 0.85)); }
+    .card__heading-span--3 {
+      background-image: linear-gradient(to right bottom, rgba(41, 152, 255, 0.85), rgba(86, 67, 250, 0.85)); }
+  .card__details {
+    padding: 3rem;
+    /* Give some empty space from top */ }
+    .card__details ul {
+      list-style: none;
+      /* Remove dots */
+      width: 80%;
+      /* We don't want to use all of the width */
+      margin: 0 auto;
+      /* Make the list in center. (margin: top-bottom left-right) */ }
+      .card__details ul li {
+        text-align: center;
+        /* Centered the li elements */
+        font-size: 1.5rem;
+        /* Font size 1.5rem */
+        padding: 1rem;
+        /* Give some padding to give empty space */ }
+        .card__details ul li:not(:last-child) {
+          border-bottom: 1px solid #eee; }
+  .card__cta {
+    /* Create a box which has the information */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    /* Make it bigger */
+    text-align: center; }
+  .card__price-box {
+    /* Create a box which has the price info */
+    text-align: center;
+    color: #fff;
+    margin-bottom: 8rem; }
+  .card__price-only {
+    /* Just a small text */
+    font-size: 1.4rem;
+    text-transform: uppercase; }
+  .card__price-value {
+    /* What is the price, and how they seems */
+    font-size: 6rem;
+    font-weight: 100; }
+  @media only screen and (max-width: 56.25em), only screen and (hover: none) {
+    .card {
+      /* Apply it if user cannot hover with his divice */
+      height: auto;
+      /* Height of card */
+      border-radius: 3px;
+      background-color: #fff;
+      box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+      /* X Y BLUR COLOR */
+      /* BACK SIDE STYLING */ }
+      .card__side {
+        /* One side of the card */
+        height: auto;
+        /* Height of card */
+        position: relative;
+        /* We use it for stick together the front and back of the cards */
+        box-shadow: none; }
+        .card__side--back {
+          /* For the front of the card */
+          transform: rotateY(0);
+          /* Show the back of the card. (Totat is 360deg, 180deg is the back of it) */
+          -webkit-clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+          clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%); }
+      .card:hover .card__side--front {
+        /* .card:hover .card__side--front => When we hover the card, the side transformed */
+        transform: rotateY(0);
+        /* Show the back of the card. (Change the opposite direction) */ }
+      .card__details {
+        padding: 1rem 3rem; }
+      .card__cta {
+        /* Create a box which has the information */
+        position: relative;
+        /* Give his freedom */
+        top: 0;
+        left: 0;
+        transform: translate(0);
+        width: 100%;
+        /* Make it bigger */
+        padding: 7rem 4rem 4rem 4rem; }
+      .card__price-box {
+        /* Create a box which has the price info */
+        margin-bottom: 3rem; }
+      .card__price-value {
+        /* What is the price, and how they seems */
+        font-size: 4rem; } }
+
+.composition {
+  position: relative; }
+  .composition__photo {
+    width: 55%;
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+    border-radius: 2px;
+    position: absolute;
+    z-index: 10;
+    transition: transform .4s;
+    outline-offset: 2rem;
+    /* It will give us the space btw. the border and image */
+    /* 900px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    @media only screen and (max-width: 56.25em) {
+      .composition__photo {
+        float: left;
+        /* For the order them */
+        position: relative;
+        /* We have to change it too. */
+        width: 33.333333%;
+        /* All of them have the same width */
+        box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.2);
+        /* Reduce the box shadow */ } }
+    .composition__photo--p1 {
+      left: 0;
+      /* Moving 0px from the left */
+      top: -2rem;
+      /* Moving -20px from the top */
+      /* 900px */
+      /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+      @media only screen and (max-width: 56.25em) {
+        .composition__photo--p1 {
+          top: 0;
+          /* To get same position in tablets */
+          transform: scale(1.2); } }
+    .composition__photo--p2 {
+      right: 0;
+      /* Moving 0px from the right */
+      top: 2rem;
+      /* Moving 20px from the top */
+      /* 900px */
+      /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+      @media only screen and (max-width: 56.25em) {
+        .composition__photo--p2 {
+          top: -1rem;
+          /* To get same position in tablets */
+          transform: scale(1.3);
+          z-index: 15; } }
+    .composition__photo--p3 {
+      left: 20%;
+      /* Moving 20% from the left */
+      top: 10rem;
+      /* Moving 100px from the top */
+      /* 900px */
+      /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+      @media only screen and (max-width: 56.25em) {
+        .composition__photo--p3 {
+          top: 1rem;
+          /* To get same position in tablets */
+          left: 0;
+          /* To get same position in tablets */
+          transform: scale(1.1); } }
+    .composition__photo:hover {
+      outline: 1.5rem solid #55c57a;
+      /* It is like border */
+      transform: scale(1.05) translateY(-0.5rem);
+      box-shadow: 0 2.5 4rem rgba(0, 0, 0, 0.5);
+      z-index: 20; }
+  .composition:hover .composition__photo:not(:hover) {
+    /* composition:hover composition__photo:not(:hover) || When we hover the composition, then select which is not hovered. */
+    transform: scale(0.95); }
+
+.feature-box {
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 1.5rem;
+  padding: 2.5rem;
+  text-align: center;
+  border-radius: 3px;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  transition: transform .3s;
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 56.25em) {
+    .feature-box {
+      padding: 2rem; } }
+  .feature-box__icon {
+    font-size: 6rem;
+    margin-bottom: .5rem;
+    background-image: linear-gradient(to right, #7ed56f, #28b485);
+    color: transparent;
+    -webkit-background-clip: text;
+    display: inline-block;
+    /* 900px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    @media only screen and (max-width: 56.25em) {
+      .feature-box__icon {
+        margin: 0; } }
+  .feature-box:hover {
+    transform: translateY(-1.5rem) scale(1.03); }
+
+.form__group:not(:last-child) {
+  margin-bottom: 2rem;
+  /* Give 2rem empty space exept last-child */ }
+
+.form__input {
+  font-size: 1.5rem;
+  /* Give some font size */
+  font-family: inherit;
+  /* Inherit font family from main, because input elements can't reach font-family we should specify it */
+  color: inherit;
+  /* We need to inherit the color as well */
+  padding: 1.5rem 2rem;
+  /* Give some padding to imputs */
+  border-radius: 2px;
+  /* Small radius */
+  background-color: rgba(255, 255, 255, 0.5);
+  /* Smooth bg-color */
+  border: none;
+  /* Delete automatic browser borders */
+  border-bottom: 3px solid transparent;
+  /* We set this because of the prevent from the diffirences */
+  width: 90%;
+  /* to prevent any size problem */
+  display: block;
+  /* because they are a block element */
+  transition: all .3s;
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 56.25em) {
+    .form__input {
+      width: 100%; } }
+  .form__input:focus {
+    /* :focus is a psuode class */
+    outline: none;
+    /* Delete automatic browser outline */
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    /* X Y Blur Color */
+    border-bottom: 3px solid #55c57a;
+    /* Give 3px border on bottom with primary color */ }
+  .form__input:focus:invalid {
+    /* When we focus, if that input is invalid this will work*/
+    border-bottom: 3px solid #ff7730;
+    /* Give 3px border on bottom with secondary-dark color */ }
+  .form__input::-webkit-input-placeholder {
+    /* (:: means psuode element) We use it to give a shape to the placeholder */
+    color: #999;
+    /* When we don't write anything, this color will be appear */ }
+
+.form__label {
+  font-size: 1.2rem;
+  /* Really small font */
+  font-weight: 700;
+  /* Some weight */
+  margin-left: 2rem;
+  /* To the same line with the input */
+  margin-top: .7rem;
+  /* Give some empty space */
+  display: block;
+  /* To use the box model elements */
+  transition: all .3s; }
+
+.form__input:placeholder-shown + .form__label {
+  /* We also select the &__label with (+ => Sibling selector). With + we also us it that way, it is just a sibling that comes immediately after the element we select in the first place. And also (~ => GENERAL Sibling selector) can be used, instead of + because ~ is general sibling selector, it does not care wheter imeditely after or not! */
+  opacity: 0;
+  /* It will be on the page but it will be invisible, we use it to use animation */
+  visibility: hidden;
+  /* It will totally disappear */
+  transform: translateY(-4rem);
+  /* It will move from top */ }
+
+.form__radio-group {
+  width: 49%;
+  /* Width of parent */
+  display: inline-block;
+  /* To get the same line */
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 56.25em) {
+    .form__radio-group {
+      width: 100%;
+      margin-bottom: 2rem; } }
+
+.form__radio-input {
+  /* Real radio element */
+  display: none;
+  /* We hide real radio element */ }
+
+.form__radio-label {
+  font-size: 1.6rem;
+  /* Font size */
+  cursor: pointer;
+  /* Cursor is shown as link  */
+  position: relative;
+  /* It is the parent element of radio-button */
+  padding-left: 4.5rem; }
+
+.form__radio-button {
+  /* We create a custom radio element */
+  height: 3rem;
+  /* */
+  width: 3rem;
+  border: 5px solid #55c57a;
+  border-radius: 50%;
+  display: inline-block;
+  /* */
+  position: absolute;
+  /* To position our custom radio */
+  left: 0;
+  top: -.4rem;
+  /* Position of custom radio */ }
+  .form__radio-button::after {
+    /* We use this lier element */
+    /* inner circle */
+    content: "";
+    /* Because of this one is a lier element */
+    display: block;
+    /* We need to tell also how it will display */
+    height: 1.3rem;
+    /* inner circle */
+    width: 1.3rem;
+    /* inner circle */
+    border-radius: 50%;
+    /* inner circle */
+    position: absolute;
+    /* inner circle */
+    top: 50%;
+    /* inner circle */
+    left: 50%;
+    /* inner circle */
+    transform: translate(-50%, -50%);
+    background-color: #55c57a;
+    opacity: 0;
+    /* We hide its apperance */
+    transition: opacity .2s;
+    /* Instead of all we used opacity, which is a specific element */ }
+
+.form__radio-input:checked ~ .form__radio-label .form__radio-button::after {
+  /* radio-button child of the radio-label, radio-label under the radio-input:checked */
+  opacity: 1;
+  /* We show its apperance */ }
+
+.popup {
+  background-color: rgba(0, 0, 0, 0.8);
+  height: 100vh;
+  width: 100vw;
+  z-index: 3000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  /* We need to have them to make animations */
+  visibility: hidden;
+  /* We need to have them to make animations */
+  transition: all .3s;
+  /* For the animations */
+  /* Open states */ }
+  @supports (-webkit-background-filter: blur(10px)) or (background-filter: blur(10px)) {
+    .popup {
+      /* @supports: Use it if browser support */
+      background-color: rgba(0, 0, 0, 0.3); } }
+  .popup__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
+    display: table;
+    /* To use table-cell properties we need to use display: table in the parent element */
+    overflow: hidden;
+    opacity: 0;
+    /* To use animation */
+    transform: translate(-50%, -50%) scale(0.25);
+    /* When we want to use 2 transforms, we can only with this one. (First one is comes from the mixin (absCenter)), Second one to create an animation */
+    transition: all .4s .2s;
+    /* .2s is delay here */ }
+  .popup__left {
+    width: 33.333333%;
+    display: table-cell; }
+  .popup__right {
+    width: 66.666667%;
+    display: table-cell;
+    vertical-align: middle;
+    /* We can only use it with table-cell, all content in the middle now (top, middle, bottom, ...) */
+    padding: 3rem 5rem; }
+  .popup__img {
+    display: block;
+    width: 100%; }
+  .popup__text {
+    font-size: 1.4rem;
+    margin-bottom: 4rem;
+    -moz-column-count: 2;
+    -moz-column-gap: 4rem;
+    -moz-column-rule: 1px solid #eee;
+    column-count: 2;
+    /* How many columns we wanted */
+    column-gap: 4rem;
+    /* The number of space between columns */
+    /* 1em = 14px; in here because it is equal to font size of the element */
+    column-rule: 1px solid #eee;
+    /* It is the ruler actually not rule, it gives us a (gray in this case) line between colors */
+    hyphens: auto;
+    /* hyphens means "tire (-)" in Turkish, it will give us auto hyphens.  Note: Still DOES NOT WORK ON CHROME */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    text-align: justify;
+    /* Fit the text */ }
+  .popup:target {
+    /* We can use the anchors with :target property */
+    opacity: 1;
+    visibility: visible; }
+  .popup:target .popup__content {
+    /* Target is comes from url, like #section-tours */
+    opacity: 1;
+    /* To use animation */
+    transform: translate(-50%, -50%) scale(1); }
+  .popup__close:link, .popup__close:visited {
+    color: #777;
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
+    font-size: 3rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: all .2s;
+    line-height: 1; }
+  .popup__close:hover {
+    color: #55c57a; }
+
+.story {
+  width: 75%;
+  /* We don't want it becomes too big */
+  margin: 0 auto;
+  /* Since it is a block element inside a block element */
+  box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
+  /* Give a little shadow */
+  background-color: rgba(255, 255, 255, 0.6);
+  /* A bg-color to the story area with some opacity (.6) */
+  border-radius: 3px;
+  /* A small radius to the story area */
+  padding: 6rem;
+  /* Give some padding */
+  padding-left: 9rem;
+  /* Move the img exact the same position ((6+3)rem) */
+  font-size: 1.6rem;
+  transform: skewX(-12deg);
+  /* Give angular shape */
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */
+  /* em for take browser's font size */
+  /* only screen: if someone printout our page it won't affect any of them */
+  /* 600px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 56.25em) {
+    .story {
+      width: 100%;
+      /* To have more area */
+      padding: 4rem;
+      /* Give some padding */
+      padding-left: 7rem;
+      /* Move the img exact the same position ((6+3)rem) */ } }
+  @media only screen and (max-width: 37.5em) {
+    .story {
+      transform: skewX(0);
+      /* Give angular shape */ } }
+  .story__shape {
+    width: 15rem;
+    height: 15rem;
+    float: left;
+    /* Make text and image in one line */
+    transform: translateX(-3rem) skewX(12deg);
+    /* TRANSLATE: Give some empty space, actually move the image -3rem. SKEWX: To make the shape the same position */
+    position: relative;
+    /* For the caption */
+    overflow: hidden;
+    /* Hide the wierd vertical effect */
+    /* Hide the outside of our shape images */
+    border-radius: 50%;
+    /* round image */
+    /* em for take browser's font size */
+    /* only screen: if someone printout our page it won't affect any of them */
+    /* 600px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+      .story__shape {
+        /* Because it is not supported older version of firefox */
+        -webkit-clip-path: circle(50% at 50% 50%);
+        clip-path: circle(50% at 50% 50%);
+        /* We gived the circular shape */
+        -webkit-shape-outside: circle(50% at 50% 50%);
+        shape-outside: circle(50% at 50% 50%);
+        /* circle(radius at X Y) radius 50% means half of the width and height of the element (7.5rem). It has to be floated. */
+        border-radius: none;
+        /* round image none */ } }
+    @media only screen and (max-width: 37.5em) {
+      .story__shape {
+        transform: translateX(-3rem) skewX(0);
+        /* Give angular shape */ } }
+  .story__img {
+    height: 100%;
+    /* To fill the area (15rem in this case) */
+    transform: translateX(-4rem) scale(1.4);
+    /* To the centered image. SCALE: to get bigger img  */
+    backface-visibility: hidden;
+    /* To fix the transform mistake */
+    transition: all .5s;
+    /* To the animation */ }
+  .story__text {
+    transform: skewX(12deg);
+    /* SKEWX: To make the text the original position. */
+    /* em for take browser's font size */
+    /* only screen: if someone printout our page it won't affect any of them */
+    /* 600px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    @media only screen and (max-width: 37.5em) {
+      .story__text {
+        transform: skewX(0);
+        /* Give angular shape */ } }
+  .story__caption {
+    position: absolute;
+    /* Absolutely in the center */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    /* It is on the bottom. */
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    text-align: center;
+    opacity: 0;
+    /* It becomes invisible */
+    transition: all .5s;
+    /* To the animation */
+    backface-visibility: hidden;
+    /* To fix the animation mistake */ }
+  .story:hover .story__caption {
+    /* When we hover it becomes visible */
+    opacity: 1;
+    /* It becomes visible */
+    transform: translate(-50%, -50%);
+    /* It is going to top. */ }
+  .story:hover .story__img {
+    transform: translateX(-4rem) scale(1);
+    /* To the centered image. SCALE: to get bigger img  */
+    filter: blur(3px) brightness(80%);
+    /* Apply some filter, (BLUR AND BRIGHTNESS) There are lots of filters */ }
+
+.footer {
+  background-color: #333;
+  padding: 10rem 0;
+  font-size: 1.4rem;
+  color: #f7f7f7;
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 56.25em) {
+    .footer {
+      padding: 8rem 0; } }
+  .footer__logo-box {
+    text-align: center;
+    /* img elements acting like text, so we can use text-align */
+    margin-bottom: 8rem;
+    /* 900px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    @media only screen and (max-width: 56.25em) {
+      .footer__logo-box {
+        margin-bottom: 6rem; } }
+  .footer__logo {
+    width: 15rem;
+    height: auto; }
+  .footer__navigation {
+    border-top: 1px solid #777;
+    padding-top: 2rem;
+    display: inline-block;
+    /* 900px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    @media only screen and (max-width: 56.25em) {
+      .footer__navigation {
+        width: 100%;
+        text-align: center; } }
+  .footer__list {
+    list-style: none; }
+  .footer__item {
+    display: inline-block; }
+    .footer__item:not(:last-child) {
+      margin-right: 1.5rem; }
+  .footer__link:link, .footer__link:visited {
+    color: #f7f7f7;
+    background-color: #333;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+    transition: all .2s; }
+  .footer__link:hover, .footer__link:active {
+    color: #55c57a;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+    transform: rotate(-5deg) scale(1.3); }
+  .footer__copyright {
+    border-top: 1px solid #777;
+    padding-top: 2rem;
+    width: 80%;
+    float: right;
+    /* 900px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    @media only screen and (max-width: 56.25em) {
+      .footer__copyright {
+        width: 100%;
+        float: none; } }
+
+.row {
+  max-width: 114rem;
+  margin: 0 auto;
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */
+  /* Main clearfix */ }
+  .row:not(:last-child) {
+    /* Except Last child */
+    margin-bottom: 8rem;
+    /* 900px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    @media only screen and (max-width: 56.25em) {
+      .row:not(:last-child) {
+        margin-bottom: 6rem; } }
+  @media only screen and (max-width: 56.25em) {
+    .row {
+      max-width: 50rem;
+      padding: 0 3rem; } }
+  .row::after {
+    content: "";
+    display: table;
+    clear: both; }
+  .row [class^="col-"] {
+    /*[]: is called an attribute, it says now this: take class attribute which start with (^) "col-" choose all of them. (If we write [class*="col-"] it means select who contain (*) "col-", but we don't want it.) (If we write [class$="col-"] it means select who end with ($) "col-", but we don't want it.) */
+    float: left;
+    /* Because we use the float system, we need to specify like this */
+    /* 900px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    .row [class^="col-"]:not(:last-child) {
+      margin-right: 6rem;
+      /* 900px */
+      /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+      @media only screen and (max-width: 56.25em) {
+        .row [class^="col-"]:not(:last-child) {
+          margin-right: 0;
+          margin-bottom: 6rem; } }
+    @media only screen and (max-width: 56.25em) {
+      .row [class^="col-"] {
+        width: 100% !important; } }
+  .row .col-1-of-2 {
+    width: calc((100% - 6rem)/ 2);
+    /* Simply calulation with different type of units, when we use variables we need to use them variable like that */ }
+  .row .col-1-of-3 {
+    width: calc((100% - 2 * 6rem) / 3);
+    /* Simply calulation with different type of units, when we use variables we need to use them variable like that */ }
+  .row .col-2-of-3 {
+    width: calc(2 * ((100% - 2 * 6rem) / 3) + 6rem);
+    /* Simply calulation with different type of units, when we use variables we need to use them variable like that */ }
+  .row .col-1-of-4 {
+    width: calc((100% - 3 * 6rem)/ 4);
+    /* Simply calulation with different type of units, when we use variables we need to use them variable like that */ }
+  .row .col-2-of-4 {
+    width: calc(2 * ((100% - 3 * 6rem)/ 4) +  6rem);
+    /* Simply calulation with different type of units, when we use variables we need to use them variable like that */ }
+  .row .col-3-of-4 {
+    width: calc(3 * ((100% - 3 * 6rem)/ 4) +  6rem);
+    /* Simply calulation with different type of units, when we use variables we need to use them variable like that */ }
+
+/* ------------------- */
+/* ------HEADER------- */
+/* ------------------- */
+.header {
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url(../img/hero-small.jpg);
+  /* We add an bg-img and give it some transparent color from top left to the right bottom */
+  height: 85vh;
+  /* 95% of the view height */
+  background-position: top;
+  /* Stay always top in the background */
+  background-size: cover;
+  /* Cover the background, always try the fit */
+  position: relative;
+  /* We make it the referance to our logo */
+  /* em for take browser's font size */
+  /* only screen: if someone printout our page it won't affect any of them */
+  /* 600px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */
+  /* --Logo-- */
+  /* --Main Text For Header-- */ }
+  @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+    .header {
+      /* Because it is not supported older version of firefox */
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+      /* We can cut our image, and the polygon(x y, x y, x y, x y) function can give specific coordinates. In clockwise coordinates %100 means (in x direction) 100% of allowed path to the +x direction*/
+      clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+      /* We can cut our image, and the polygon(x y, x y, x y, x y) function can give specific coordinates. In clockwise coordinates %100 means (in x direction) 100% of allowed path to the +x direction*/
+      height: 95vh; } }
+  @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em), only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em), only screen and (min-width: 125em) {
+    .header {
+      /* dpi: dots per inch, If the resolution is higher then the 192dpi then load this one */
+      /* and: We use multiple media queries */
+      /* ,:or  */
+      background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url(../img/hero.jpg); } }
+  @media only screen and (max-width: 37.5em) {
+    .header {
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%); } }
+  .header__logo-box {
+    /* We change its name because of BEM sysyem */
+    position: absolute;
+    /* Give it absolute position, it is stick */
+    top: 4rem;
+    /* 40px from top */
+    left: 4rem;
+    /* 40px from left */ }
+  .header__logo {
+    /* & is basically take .header */
+    height: 3.5rem;
+    /* Specified a height */ }
+  .header__text-box {
+    position: absolute;
+    /* We can use top and left properties after make position ABSOLUTE, and its PARENT should be RELATIVE */
+    /* The bottom three change the center from top left to the middle of text */
+    top: 40%;
+    /* Position from top*/
+    left: 50%;
+    /* Position from left*/
+    transform: translate(-50%, -50%);
+    /* We can change the position of this element */
+    text-align: center;
+    /* Makes every text element in the center of text-box class */ }
+
+.navigation {
+  /* We will use the "checkbox trick" or "checkbox hack" */
+  /* Functionality */
+  /* Icon */
+  /* transform-origin: right; It is rotate from right, just an info */ }
+  .navigation__checkbox {
+    display: none;
+    /* Hide checkbox */ }
+  .navigation__button {
+    background-color: #fff;
+    height: 7rem;
+    width: 7rem;
+    position: fixed;
+    top: 6rem;
+    right: 6rem;
+    border-radius: 50%;
+    z-index: 2000;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    /* Feels like a real button */
+    /* 900px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */
+    /* em for take browser's font size */
+    /* only screen: if someone printout our page it won't affect any of them */
+    /* 600px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    @media only screen and (max-width: 56.25em) {
+      .navigation__button {
+        top: 4rem;
+        right: 4rem; } }
+    @media only screen and (max-width: 37.5em) {
+      .navigation__button {
+        top: 3rem;
+        right: 3rem; } }
+  .navigation__background {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    position: fixed;
+    /* Even you scroll the page it will stay same location, and you can use absolute positions like top and left */
+    top: 6.5rem;
+    right: 6.5rem;
+    background-image: radial-gradient(#7ed56f, #28b485);
+    /* From the middle to the end */
+    z-index: 1000;
+    /* They will stay always top of anything */
+    transition: transform 0.8s cubic-bezier(0.83, 0, 0.17, 1);
+    /* We only animated transform, cubic-bezier(0.83, 0, 0.17, 1); kind of timer for animations and really good, https://easings.net/#easeInOutQuint https://cubic-bezier.com/*/
+    /* 900px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */
+    /* em for take browser's font size */
+    /* only screen: if someone printout our page it won't affect any of them */
+    /* 600px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    @media only screen and (max-width: 56.25em) {
+      .navigation__background {
+        top: 4.5rem;
+        right: 4.5rem; } }
+    @media only screen and (max-width: 37.5em) {
+      .navigation__background {
+        top: 3.5rem;
+        right: 3.5rem; } }
+  .navigation__nav {
+    height: 100vh;
+    /* All viewpoint-height */
+    position: fixed;
+    /* Navigation always stays on the viewport */
+    top: 0;
+    left: 0;
+    /* It will comes from left */
+    z-index: 1500;
+    opacity: 0;
+    /* invisible */
+    width: 0;
+    /* Totally disappear */
+    display: none;
+    transition: all 0.8s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    /* We only animated opacity and width, cubic-bezier is manupilated version of ease-out */ }
+  .navigation__list {
+    /* List */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    list-style: none;
+    text-align: center;
+    width: 100%; }
+  .navigation__item {
+    /* Item */
+    margin: 1rem; }
+  .navigation__link {
+    /* Link */ }
+    .navigation__link:link, .navigation__link:visited {
+      display: inline-block;
+      /* To use block attributes */
+      font-size: 3rem;
+      /* Really bigger font-size */
+      font-weight: 300;
+      padding: 1rem 2rem;
+      /* Bigger links */
+      color: #fff;
+      text-decoration: none;
+      text-transform: uppercase;
+      background-image: linear-gradient(120deg, transparent 0%, transparent 50%, #fff 50%);
+      /* To give angular bg effect to links */
+      background-size: 220%;
+      /* Full with that bg */
+      transition: all .4s; }
+      .navigation__link:link span, .navigation__link:visited span {
+        margin-right: 1.5rem;
+        display: inline-block; }
+    .navigation__link:hover, .navigation__link:active {
+      background-position: 100%;
+      /* Change bg-position from 0% to 100% */
+      color: #55c57a;
+      transform: translateX(1rem);
+      /* Small move, looks better */ }
+  .navigation__checkbox:checked ~ .navigation__background {
+    transform: scale(80); }
+  .navigation__checkbox:checked ~ .navigation__nav {
+    opacity: 1;
+    /* visible nav */
+    width: 100%;
+    /* Totally appear */
+    display: inline-block; }
+  .navigation__icon {
+    position: relative;
+    margin-top: 3.5rem;
+    /* To make it beautiful */
+    margin-left: 2rem;
+    /* To set their positions */
+    /* To set their positions */ }
+    .navigation__icon, .navigation__icon::before, .navigation__icon::after {
+      /* This is our span element */
+      width: 3rem;
+      height: 2px;
+      background-color: #333;
+      display: inline-block; }
+    .navigation__icon::before, .navigation__icon::after {
+      content: "";
+      /* It is must as you notice */
+      position: absolute;
+      /* To set their positions */
+      left: 0;
+      /* To set their positions */
+      transition: all .2s; }
+    .navigation__icon::before {
+      top: -.8rem; }
+    .navigation__icon::after {
+      top: .8rem; }
+  .navigation__button:hover .navigation__icon::before {
+    /* We can use it that way because icon child of the button */
+    top: -1rem;
+    /* Move ((1.0-0.8=0.2rem) to top) */ }
+  .navigation__button:hover .navigation__icon::after {
+    /* We can use it that way because icon child of the button */
+    top: 1rem; }
+  .navigation__checkbox:checked + .navigation__button .navigation__icon {
+    /* navigation__button is the ADJACENT SIBLING of navigation__checkbox, so we can use ADJ SIB. properties (Here we will use +), ADJACENT SIBLING is like KOMŞU ÇOCUĞU. FIRST WE SELECT CHECKBOX, THAN HIS NEIGHBOR BUTTON AND THAN THE BUTTON'S CHILD, WHICH IS ICON */
+    background-color: transparent;
+    /* To make it disappare, the original span element */ }
+  .navigation__checkbox:checked + .navigation__button .navigation__icon::before {
+    /* navigation__button is the ADJACENT SIBLING of navigation__checkbox, so we can use ADJ SIB. properties (Here we will use +), ADJACENT SIBLING is like KOMŞU ÇOCUĞU. FIRST WE SELECT CHECKBOX, THAN HIS NEIGHBOR BUTTON AND THAN THE BUTTON'S CHILD, WHICH IS ICON */
+    top: 0;
+    /* Positions should be in the center */
+    transform: rotate(135deg);
+    /* To create the cross, 180deg-45deg=135deg */ }
+  .navigation__checkbox:checked + .navigation__button .navigation__icon::after {
+    /* navigation__button is the ADJACENT SIBLING of navigation__checkbox, so we can use ADJ SIB. properties (Here we will use +), ADJACENT SIBLING is like KOMŞU ÇOCUĞU. FIRST WE SELECT CHECKBOX, THAN HIS NEIGHBOR BUTTON AND THAN THE BUTTON'S CHILD, WHICH IS ICON */
+    top: 0;
+    /* Positions should be in the center */
+    transform: rotate(-135deg);
+    /* To create the cross */ }
+
+.section-about {
+  background-color: #f7f7f7;
+  padding: 25rem 0;
+  margin-top: -20vh;
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 56.25em) {
+    .section-about {
+      padding: 20rem 0; } }
+
+.section-features {
+  padding: 20rem 0;
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url(../img/nat-4.jpg);
+  /* We add an bg-img and give it some transparent color from top left to the right bottom */
+  background-size: cover;
+  transform: skewY(-7deg);
+  margin-top: -10rem;
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  .section-features > * {
+    /* This is called "Direct Child". Select row */
+    transform: skewY(7deg); }
+  @media only screen and (max-width: 56.25em) {
+    .section-features {
+      padding: 10rem 0; } }
+
+.section-tours {
+  background-color: #f7f7f7;
+  padding: 25rem 0 15rem 0;
+  /* top right bottom left */
+  margin-top: -10rem;
+  /* Move up the section */
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 56.25em) {
+    .section-tours {
+      padding: 20rem 0 15em 0; } }
+
+.section-stories {
+  position: relative;
+  /* Because of the video fit here */
+  padding: 15rem 0;
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 56.25em) {
+    .section-stories {
+      padding: 10rem 0; } }
+
+.section-book {
+  padding: 15rem 0;
+  /* Give some padding from top and bottom */
+  background-image: linear-gradient(to right bottom, #7ed56f, #28b485);
+  /* Change color to right bottom */
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 56.25em) {
+    .section-book {
+      padding: 10rem 0; } }
+
+.book {
+  /* This is the card part */
+  background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 49.9%, transparent 50%), url(../img/nat-10.jpg);
+  /* The bg-img */
+  background-size: 100%;
+  /* We can use percenteges instead of cover(100%) */
+  border-radius: 3px;
+  /* 3px border-radius */
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
+  /* A little box-shadow */
+  /* 1200px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */
+  /* 900px */
+  /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+  @media only screen and (max-width: 75em) {
+    .book {
+      background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 65%, transparent 65%), url(../img/nat-10.jpg);
+      /* The bg-img */
+      background-size: cover;
+      /* We can use percenteges instead of cover(100%) */ } }
+  @media only screen and (max-width: 56.25em) {
+    .book {
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%), url(../img/nat-10.jpg);
+      /* The bg-img */
+      background-size: cover;
+      /* We can use percenteges instead of cover(100%) */ } }
+  .book__form {
+    width: 50%;
+    /* 50% of the book area */
+    padding: 6rem;
+    /* 6rem padding */
+    /* 1200px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */
+    /* 1200px */
+    /* Content includes what has inside, for example we used this mixin in base and add it's content is  font-size: 50%. */ }
+    @media only screen and (max-width: 75em) {
+      .book__form {
+        width: 65%;
+        /* 70% of the book area */ } }
+    @media only screen and (max-width: 75em) {
+      .book__form {
+        width: 100%;
+        /* 70% of the book area */ } }

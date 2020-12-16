@@ -1,0 +1,16 @@
+.bg-video {
+    position: absolute; /* Position of the bg-video */
+    top: 0; /* Same as the section-stories */
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1; /* Behind the all off the toher elements */
+    opacity: .15; /* Give some blur */
+    overflow: hidden; /* Hide the overflows */
+
+    &__content {
+        height: 100%; /* Same as section stories, but cannot go further, so we use to fix this problem object-fit */
+        width: 100%;
+        object-fit: cover; /* Cover whole section stories, in other words, fill the enthire parent element */
+    }
+}

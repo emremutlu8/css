@@ -1,0 +1,96 @@
+.popup {
+    background-color: rgba($color-black, .8);
+    height: 100vh;
+    width: 100vw;
+    z-index: 3000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0; /* We need to have them to make animations */
+    visibility: hidden; /* We need to have them to make animations */
+    transition: all .3s; /* For the animations */
+
+    @supports(-webkit-background-filter: blur(10px)) or (background-filter: blur(10px)) { /* @supports: Use it if browser support */
+        background-color: rgba($color-black, .3);
+    }
+
+    &__content { 
+        @include absCenter;
+        
+        width: 75%;
+        background-color: $color-white;
+        border-radius: $border-radius;
+        box-shadow: 0 2rem 4rem rgba($color-black, .2);
+        display: table; /* To use table-cell properties we need to use display: table in the parent element */
+        overflow: hidden;
+        opacity: 0; /* To use animation */
+        transform: translate(-50%, -50%) scale(.25); /* When we want to use 2 transforms, we can only with this one. (First one is comes from the mixin (absCenter)), Second one to create an animation */
+        transition: all .4s .2s; /* .2s is delay here */
+    }
+
+    &__left {
+        width: 33.333333%; 
+        display: table-cell;
+    }
+
+    &__right {
+        width: 66.666667%;
+        display: table-cell;
+        vertical-align: middle; /* We can only use it with table-cell, all content in the middle now (top, middle, bottom, ...) */
+        padding: 3rem 5rem;
+    }
+
+    &__img {
+        display: block;
+        width: 100%;
+    }
+
+    &__text {
+        font-size: 1.4rem;
+        margin-bottom: 4rem;
+
+        -moz-column-count: 2;
+        -moz-column-gap: 4rem;
+        -moz-column-rule: 1px solid $color-gray-light-2;
+
+        column-count: 2; /* How many columns we wanted */
+        column-gap: 4rem; /* The number of space between columns */ /* 1em = 14px; in here because it is equal to font size of the element */
+        column-rule: 1px solid $color-gray-light-2; /* It is the ruler actually not rule, it gives us a (gray in this case) line between colors */
+
+        hyphens: auto; /* hyphens means "tire (-)" in Turkish, it will give us auto hyphens.  Note: Still DOES NOT WORK ON CHROME */
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        text-align: justify; /* Fit the text */ 
+    } 
+    
+    /* Open states */
+    &:target { /* We can use the anchors with :target property */
+        opacity: 1;
+        visibility: visible;   
+    }
+
+    &:target &__content { /* Target is comes from url, like #section-tours */
+        opacity: 1; /* To use animation */
+        transform: translate(-50%, -50%) scale(1); 
+    }
+
+    &__close {
+        &:link,
+        &:visited {
+            color: $color-gray-dark;
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            font-size: 3rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all .2s;
+            line-height: 1;
+        }
+
+        &:hover {
+            color: $color-primary;
+        }
+    }
+}
